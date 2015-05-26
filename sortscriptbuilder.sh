@@ -11,9 +11,9 @@
 #                                                                              #
 # Contact        : rbleattler@gmail.com (Please use Subject: Autodl Script)    #
 #                                                                              #
-# Date           : 05/25/2015                                                  #
+# Date           : 05/26/2015                                                  #
 #                                                                              #
-# Version        : 1.0                                                         #
+# Version        : 1.0.1                                                       #
 #                                                                              #
 # Usage          : bash sortscriptbuilder.sh                                   #
 #                                                                              #
@@ -238,9 +238,9 @@ cat > $scriptfile <<EOT
 #                                                                               #
 # Contact        : rbleattler@gmail.com (Please use Subject: Media Sort Script) #
 #                                                                               #
-# Date           : 05/25/2015                                                   #
+# Date           : 05/26/2015                                                   #
 #                                                                               #
-# Version        : 1.0                                                          #
+# Version        : 1.0.1                                                        #
 #                                                                               #
 # Usage          : bash sortscriptbuilder.sh                                    #
 #                                                                               #
