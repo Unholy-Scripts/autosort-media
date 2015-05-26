@@ -1,6 +1,4 @@
-# autosort-media
-
-[autosort-media](https://github.com/Unholy-Scripts/autosort-media)
+# [autosort-media](https://github.com/Unholy-Scripts/autosort-media)
 This script was developed to automatically sorts files based on user-defined parameters.
 
 The core script reads the user's input, and writes a sorting script that will sort and move files.
