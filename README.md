@@ -1,4 +1,5 @@
 # [autosort-media](https://github.com/Unholy-Scripts/autosort-media)
+
 This script was developed to automatically sorts files based on user-defined parameters.
 
 The core script reads the user's input, and writes a sorting script that will sort and move files.
@@ -6,6 +7,15 @@ The core script reads the user's input, and writes a sorting script that will so
 ## Getting Started
 
 The script [sortscriptbuilder.sh](https://github.com/Unholy-Scripts/autosort-media/blob/master/sortscriptbuilder.sh) should always be run as ''sudo''. It will force an exit if it is not. This is because there are commands which require root access within the script. 
+
+## Dependencies
+
+### Expect
+
+This script depends on the expect shell environment as a secondary environment to function properly. In Ubuntu (and other similar distributions) you may run ''apt-get install expect'' to have it installed on your system.
+
+You can find the binary installers here: [Expect](http://www.activestate.com/activetcl/downloads).
+You can find the source code here: [Expect](http://sourceforge.net/projects/expect/).
 
 ## Contributions 
 
@@ -15,6 +25,7 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 
 * Adding automated cronjob scheduler as an option
 * Additional paramaterization of categories
+* Automatic install of dependencies
 * More...
 
 ### Honorable Mentions
