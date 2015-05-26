@@ -405,6 +405,6 @@ function scriptmain(){
 scriptmain
 
 exit
-EOT >>
+EOT
 
 exit
