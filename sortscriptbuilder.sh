@@ -113,7 +113,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
 
                     exec sudo mkdir ~/.ssh
                     exec sudo chmod 700 ~/.ssh
-<<expect_eof ./sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
+<<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
 expect_eof
                     wait $! &
 
