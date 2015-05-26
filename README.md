@@ -13,6 +13,12 @@ The script [sortscriptbuilder.sh](https://github.com/Unholy-Scripts/autosort-med
 
 Contributions are currently appreciated, and welcomed but must be specifically directed at the creator [IONine](https://github.com/IOnine). Once I have established a reasonable system for contributing through the github interface, more instructions will be posted.
 
+## Coming Additions
+
+* Adding automated cronjob scheduler as an option
+* Additional paramaterization of categories
+* More...
+
 ### Honorable Mentions
 
 This was written as a compliment to the creator's installation of https://github.com/autodl-community/autodl-irssi.
@@ -20,8 +26,4 @@ This was written as a compliment to the creator's installation of https://github
 Please note that this project is in no way affiliated with autodl-irssi. All credit where credit is due to the 
 autodl-community developers.
 
-## Coming Additions
 
-* Adding automated cronjob scheduler as an option
-* Additional paramaterization of categories
-* More...
