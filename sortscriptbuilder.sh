@@ -1,5 +1,9 @@
 #!/bin/bash
 
+clear               ## Clears the Terminal Window.
+
+version="1.0.8"
+
 ################################################################################
 #                                                                              #
 # Title          : sortscriptbuilder.sh                                        #
@@ -152,7 +156,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
 
                 if [ ! -e ~/.ssh/id_rsa ]
                     then
-                        sshkeygen; &&
+                        sshkeygen &&
                         sshestablish wait $1
                 else
                     sshestablish wait $1
@@ -163,8 +167,8 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                 ##  End of expect script section  ##
                 ##                                ##
                 ####################################
-
-
+                        clear               ## Clears the Terminal Window.
+                        printf "\n\n\n"
                         printf "Choosing yes to the following option will begin \n"
                         printf "configuration of directories to move media to after \n"
                         printf "sorting has completed. You should choose yes. \n"
@@ -176,6 +180,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                         printf "automatically create subdirectories, then simply \n"
                         printf "defining 'Movies' (etc...) as your parameter should \n"
                         printf "effectively move everything within that directory. \n"
+                        printf "\n\n\n"
                         sleep 4
                         read -e -p "Create Media Directories? [Yes]"
                                     yn3=${yn3:-Yes};
@@ -188,7 +193,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                                 while [[ -z "$par1" ]]; do
                                     read -e -p "Please define the parameter for this directory [$dirn1]" p1;
                                     p1=${p1:-$dirn1};
-                                    printf "Setting Parameter to $p1"
+                                    printf "Setting Parameter to $p1\n"
                                     par1="$p1"
                                 done
                                 read -e -p "Create another? [Yes]" yn4;
@@ -202,7 +207,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                                                     while [[ -z "$par2" ]]; do
                                                         read -e -p "Please define the parameter for this directory [$dirn2]" p2;
                                                         p2=${p2:-$dirn2};
-                                                        printf "Setting Parameter to $p2"
+                                                        printf "Setting Parameter to $p2\n"
                                                         par2="$p2"
                                                     done
                                                 read -e -p "Create another? [Yes]" yn5;
@@ -216,7 +221,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                                                                     while [[ -z "$par3" ]]; do
                                                                         read -e -p "Please define the parameter for this directory [$dirn3]" p3;
                                                                         p3=${p3:-$dirn3};
-                                                                        printf "Setting Parameter to $p3"
+                                                                        printf "Setting Parameter to $p3\n"
                                                                         par3="$p3"
                                                                     done
                                                                 yn6=${yn6:-Yes};
@@ -229,7 +234,7 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                                                                                 while [[ -z "$par4" ]]; do
                                                                                     read -e -p "Please define the parameter for this directory [$dirn4]" p4;
                                                                                     p4=${p4:-$dirn4};
-                                                                                    printf "Setting Parameter to $p4"
+                                                                                    printf "Setting Parameter to $p4\n"
                                                                                     par4="$p4"
                                                                                 done
                                                                             break;
@@ -263,8 +268,15 @@ printf "Logs will be written to $logfile\n"
 read -e -p "Enter the location for the script to be placed: [$HOME/scripts]" tscr1;
 tscr1=${tscr1:-$HOME/scripts};
 scriptfile="$tscr1/sortmedia.sh"
-printf "Creating Directory : $tscr1\n"
-mkdir $tscr1
+
+if [ ! -e $tscr1 ]
+    then
+        printf "Creating Directory : $tscr1\n"
+        mkdir $tscr1
+    else
+        printf "Setting Directory to : $tscr1"
+fi
+
 printf "Creating Script File : $scriptfile\n"
 touch $scriptfile
 printf "Giving Script Execute Permissions.\n"
@@ -285,9 +297,9 @@ cat > $scriptfile <<EOT
 #                                                                               #
 # Contact        : rbleattler@gmail.com (Please use Subject: Media Sort Script) #
 #                                                                               #
-# Date           : 05/26/2015                                                   #
+# Date           : $(date +%m/%d/%y)                                            #
 #                                                                               #
-# Version        : 1.0.1                                                        #
+# Version        : $version                                                     #
 #                                                                               #
 # Usage          : bash sortscriptbuilder.sh                                    #
 #                                                                               #

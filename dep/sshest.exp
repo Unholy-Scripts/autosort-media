@@ -46,6 +46,12 @@ expect
                     exp_send "$password\r"
                     exp_continue
                 }
+expect
+        "*continue*"
+        {
+                exp_send"y\r"
+                exp_continue
+        }
 
 
 spawn ssh $remusr@$addr
