@@ -1,5 +1,9 @@
 #!/bin/bash
 
+clear               ## Clears the Terminal Window.
+
+version="1.0.8"
+
 ################################################################################
 #                                                                              #
 # Title          : sortscriptbuilder.sh                                        #
@@ -11,9 +15,9 @@
 #                                                                              #
 # Contact        : rbleattler@gmail.com (Please use Subject: Autodl Script)    #
 #                                                                              #
-# Date           : 05/26/2015                                                  #
+# Date           : 05/27/2015                                                  #
 #                                                                              #
-# Version        : 1.0.1                                                       #
+# Version        : 1.0.8                                                       #
 #                                                                              #
 # Usage          : bash sortscriptbuilder.sh                                   #
 #                                                                              #
@@ -37,6 +41,30 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root ('sudo' will suffice)"
   exit
 fi
+
+sudo chmod a+x ./dep/sshkeygen.exp
+sudo chmod a+x ./dep/sshest.exp
+
+########################################################################
+#                                                                      #
+#  This section creates functions vital to the proper functioning of   #
+#                           the script.                                #
+#                                                                      #
+########################################################################
+
+function sshkeygen(){
+
+<<expect_eof ./dep/sshkeygen.exp $HOME
+expect_eof
+
+}
+
+function sshestablish(){
+
+<<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
+expect_eof
+
+}
 
 ########################################################################
 #                                                                      #
@@ -63,11 +91,11 @@ read -e -p "Enter your sudo password (again): " -s supassv;
 done
 
 read -e -p "Enter the rtorrent directory for finished downloads: [$HOME/rtorrent/finished]" findir
-    findir=${findir:-$HOME/rtorrent/finished};     ### defines the default value for this variable if no input detected ###
+    findir=${findir:-$HOME/rtorrent/finished};     ## defines the default value for this variable if no input detected ##
     printf "Setting directory to $findir...\n"
 
 read -e -p "Enter the directory where you want your organized media to go: [$HOME/Media]" meddir; 
-    meddir=${meddir:-$HOME/Media};     ### defines the default value for this variable if no input detected ###
+    meddir=${meddir:-$HOME/Media};     ## defines the default value for this variable if no input detected ##
     printf "Setting Media directory to $meddir...\n"
 
 read -e -p "Would you like to enable remote transfer of files?? (Yy|Nn)" yn;
@@ -77,8 +105,7 @@ read -e -p "Would you like to enable remote transfer of files?? (Yy|Nn)" yn;
             then
                 RT="ON"
                 printf "Enabling Remote transfer of Files.\n"
-        else
-            then
+            else
                 RT="OFF"
                 printf "Disabling Remote transfer of Files.\n"
         fi
@@ -88,8 +115,7 @@ read -e -p "Would you like to remove local files after remote transfer? (Yy|Nn)"
             then
                 RD="ON"
                 printf "Enabling Cleanup of Files After Transfer.\n"
-        else
-            then
+            else
                 RD="OFF"
                 printf "Disabling Cleanup of Files After Transfer.\n"
         fi
@@ -99,25 +125,50 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
             case $yn2 in
                 Y* | y* ) 
                     read -e -p "Enter your username for the remote destination: [$USER]" remusr; 
-                        remusr=${remusr:-$USER};     ### defines the default value for this variable if no input detected ###
+                        remusr=${remusr:-$USER};     ## defines the default value for this variable if no input detected ##
                         printf "Setting remote username to $remusr...\n";
                     read -e -p "Enter your password for the remote destination:" -s rempass; 
-                        rempass=${rempass:-$PASSWORD};     ### defines the default value for this variable if no input detected ###
-                        printf "Setting remote password...\n";
+                        rempass=${rempass:-$PASSWORD};     ## defines the default value for this variable if no input detected ##
+                        printf "\nSetting remote password...\n";
                     read -e -p "Enter the IP Address of the remote location: [127.0.0.1]" addr;
-                        addr=${addr:-127.0.0.1};     ### defines the default value for this variable if no input detected ###
+                        addr=${addr:-127.0.0.1};     ## defines the default value for this variable if no input detected ##
                         printf "Setting remote IP Address to $addr...\n";
                     read -e -p "Enter the remote directory where you want to transfer your media to: [$addr/$HOME/Media]" rdest;
-                        rdest=${rdest:-$addr/$HOME/Media};     ### defines the default value for this variable if no input detected ###
+                        rdest=${rdest:-$addr/$HOME/Media};     ## defines the default value for this variable if no input detected ##
                         printf "Setting Media directory to $rdest...\n";
+                if [ ! -f ~/.ssh ]
+                    then
+                        sudo mkdir ~/.ssh
+                        if [ ! -O ~/.ssh ]
+                            then
+                                sudo chown -R -f $USER:$GROUPS ~/.ssh
+                        fi
+                fi
+                    sudo chmod 700 ~/.ssh
 
-                    exec sudo mkdir ~/.ssh
-                    exec sudo chmod 700 ~/.ssh
-<<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
-expect_eof
-                    wait $! &
+                #######################################################################
+                ##                                                                   ##
+                ## This checks to see if the 'id_rsa' key exists. If the Key exists  ##
+                ## it will copy the key to the remote host. If it does not exist. It ##
+                ## will create a key, then copy the key to the remote host.          ##
+                ##                                                                   ##
+                #######################################################################
 
+                if [ ! -e ~/.ssh/id_rsa ]
+                    then
+                        sshkeygen &&
+                        sshestablish wait $1
+                else
+                    sshestablish wait $1
+                fi
 
+                ####################################
+                ##                                ##
+                ##  End of expect script section  ##
+                ##                                ##
+                ####################################
+                        clear               ## Clears the Terminal Window.
+                        printf "\n\n\n"
                         printf "Choosing yes to the following option will begin \n"
                         printf "configuration of directories to move media to after \n"
                         printf "sorting has completed. You should choose yes. \n"
@@ -129,6 +180,7 @@ expect_eof
                         printf "automatically create subdirectories, then simply \n"
                         printf "defining 'Movies' (etc...) as your parameter should \n"
                         printf "effectively move everything within that directory. \n"
+                        printf "\n\n\n"
                         sleep 4
                         read -e -p "Create Media Directories? [Yes]"
                                     yn3=${yn3:-Yes};
@@ -141,7 +193,7 @@ expect_eof
                                 while [[ -z "$par1" ]]; do
                                     read -e -p "Please define the parameter for this directory [$dirn1]" p1;
                                     p1=${p1:-$dirn1};
-                                    printf "Setting Parameter to $p1"
+                                    printf "Setting Parameter to $p1\n"
                                     par1="$p1"
                                 done
                                 read -e -p "Create another? [Yes]" yn4;
@@ -155,7 +207,7 @@ expect_eof
                                                     while [[ -z "$par2" ]]; do
                                                         read -e -p "Please define the parameter for this directory [$dirn2]" p2;
                                                         p2=${p2:-$dirn2};
-                                                        printf "Setting Parameter to $p2"
+                                                        printf "Setting Parameter to $p2\n"
                                                         par2="$p2"
                                                     done
                                                 read -e -p "Create another? [Yes]" yn5;
@@ -169,7 +221,7 @@ expect_eof
                                                                     while [[ -z "$par3" ]]; do
                                                                         read -e -p "Please define the parameter for this directory [$dirn3]" p3;
                                                                         p3=${p3:-$dirn3};
-                                                                        printf "Setting Parameter to $p3"
+                                                                        printf "Setting Parameter to $p3\n"
                                                                         par3="$p3"
                                                                     done
                                                                 yn6=${yn6:-Yes};
@@ -182,7 +234,7 @@ expect_eof
                                                                                 while [[ -z "$par4" ]]; do
                                                                                     read -e -p "Please define the parameter for this directory [$dirn4]" p4;
                                                                                     p4=${p4:-$dirn4};
-                                                                                    printf "Setting Parameter to $p4"
+                                                                                    printf "Setting Parameter to $p4\n"
                                                                                     par4="$p4"
                                                                                 done
                                                                             break;
@@ -216,8 +268,15 @@ printf "Logs will be written to $logfile\n"
 read -e -p "Enter the location for the script to be placed: [$HOME/scripts]" tscr1;
 tscr1=${tscr1:-$HOME/scripts};
 scriptfile="$tscr1/sortmedia.sh"
-printf "Creating Directory : $tscr1\n"
-mkdir $tscr1
+
+if [ ! -e $tscr1 ]
+    then
+        printf "Creating Directory : $tscr1\n"
+        mkdir $tscr1
+    else
+        printf "Setting Directory to : $tscr1"
+fi
+
 printf "Creating Script File : $scriptfile\n"
 touch $scriptfile
 printf "Giving Script Execute Permissions.\n"
@@ -238,9 +297,9 @@ cat > $scriptfile <<EOT
 #                                                                               #
 # Contact        : rbleattler@gmail.com (Please use Subject: Media Sort Script) #
 #                                                                               #
-# Date           : 05/26/2015                                                   #
+# Date           : $(date +%m/%d/%y)                                            #
 #                                                                               #
-# Version        : 1.0.1                                                        #
+# Version        : $version                                                     #
 #                                                                               #
 # Usage          : bash sortscriptbuilder.sh                                    #
 #                                                                               #

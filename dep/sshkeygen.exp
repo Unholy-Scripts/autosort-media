@@ -2,7 +2,7 @@
 
 ################################################################################
 #                                                                              #
-# Title          : sshest.ssh                                                  #
+# Title          : sshkeygen.ssh                                               #
 #                                                                              #
 # Description    : This script is a dependency of sortscriptbuilder.sh         #
 #                                                                              #
@@ -15,7 +15,7 @@
 #                                                                              #
 # Version        : 1.0.8                                                       #
 #                                                                              #
-# Usage          : expect sshest.sh                                            #
+# Usage          : expect sshkeygen.sh                                         #
 #                                                                              #
 # Notes          :                                                             #
 #                                                                              #
@@ -32,33 +32,16 @@
 #                                                                     #
 #######################################################################
 
-set addr        [lindex $argv 0]
-set password    [lindex $argv 1]
-set remusr      [lindex $argv 2]
-set HOME        [lindex $argv 4]
+set HOME        [lindex $argv 1]
 
-set timeout 30
+set timeout -1
 
-spawn ssh-copy-id $remusr@$addr
+spawn ssh-keygen -b 2048 -t rsa -f $HOME/.ssh/id_rsa -q -N ""
 expect
-        "*assword*"
-                {
-                    exp_send "$password\r"
-                    exp_continue
-                }
-expect
-        "*continue*"
+        "*exists*"
         {
-                exp_send"y\r"
-                exp_continue
+                exp_send "n\r"
         }
-
-
-spawn ssh $remusr@$addr
-Expect "$ " {
-send "exit\r"
-send_tty "You've been logged out of $remusr@$addr!"
-}
 
 send_tty "YOU'RE OUT!"
 
