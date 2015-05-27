@@ -135,7 +135,6 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                 if [ ! -f ~/.ssh ]
                     then
                         sudo mkdir ~/.ssh
-                    then
                         if [ ! -O ~/.ssh ]
                             then
                                 sudo chown -R -f $USER:$GROUPS ~/.ssh
