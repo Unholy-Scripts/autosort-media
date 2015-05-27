@@ -101,18 +101,24 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                         printf "Setting remote username to $remusr...\n";
                     read -e -p "Enter your password for the remote destination:" -s rempass; 
                         rempass=${rempass:-$PASSWORD};     ### defines the default value for this variable if no input detected ###
-                        printf "Setting remote password...\n";
+                        printf "\nSetting remote password...\n";
                     read -e -p "Enter the IP Address of the remote location: [127.0.0.1]" addr;
                         addr=${addr:-127.0.0.1};     ### defines the default value for this variable if no input detected ###
                         printf "Setting remote IP Address to $addr...\n";
                     read -e -p "Enter the remote directory where you want to transfer your media to: [$addr/$HOME/Media]" rdest;
                         rdest=${rdest:-$addr/$HOME/Media};     ### defines the default value for this variable if no input detected ###
                         printf "Setting Media directory to $rdest...\n";
-
-                    exec sudo mkdir ~/.ssh || true  ### If the directory exists, it will not create/overwrite, but it will also return 
-                                                    ### a status of true to the system, to avoid exiting due to an error
-                    exec sudo chmod 700 ~/.ssh
-
+                if [ ! -f ~/.ssh ]
+                    then
+                        sudo mkdir ~/.ssh
+                    then
+                        if [ ! -O ~/.ssh ]
+                            then
+                                sudo chown -R -f $USER:$GROUPS ~/.ssh
+                        fi
+                fi
+                    sudo chmod 700 ~/.ssh
+                    
 ####################################################################################################################################
 ### This section runs the expect script to automatically establish the ssh connection, and send the RSA key to the remote client ###
 ####################################################################################################################################
