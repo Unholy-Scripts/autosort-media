@@ -77,8 +77,7 @@ read -e -p "Would you like to enable remote transfer of files?? (Yy|Nn)" yn;
             then
                 RT="ON"
                 printf "Enabling Remote transfer of Files.\n"
-        else
-            then
+            else
                 RT="OFF"
                 printf "Disabling Remote transfer of Files.\n"
         fi
@@ -88,8 +87,7 @@ read -e -p "Would you like to remove local files after remote transfer? (Yy|Nn)"
             then
                 RD="ON"
                 printf "Enabling Cleanup of Files After Transfer.\n"
-        else
-            then
+            else
                 RD="OFF"
                 printf "Disabling Cleanup of Files After Transfer.\n"
         fi
@@ -111,11 +109,21 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                         rdest=${rdest:-$addr/$HOME/Media};     ### defines the default value for this variable if no input detected ###
                         printf "Setting Media directory to $rdest...\n";
 
-                    exec sudo mkdir ~/.ssh
+                    exec sudo mkdir ~/.ssh || true  ### If the directory exists, it will not create/overwrite, but it will also return 
+                                                    ### a status of true to the system, to avoid exiting due to an error
                     exec sudo chmod 700 ~/.ssh
+
+####################################################################################################################################
+### This section runs the expect script to automatically establish the ssh connection, and send the RSA key to the remote client ###
+####################################################################################################################################
+
 <<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
 expect_eof
-                    wait $! &
+            wait $! &
+
+####################################
+### End of expect script section ###
+####################################
 
 
                         printf "Choosing yes to the following option will begin \n"
