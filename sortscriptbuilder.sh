@@ -11,9 +11,9 @@
 #                                                                              #
 # Contact        : rbleattler@gmail.com (Please use Subject: Autodl Script)    #
 #                                                                              #
-# Date           : 05/26/2015                                                  #
+# Date           : 05/27/2015                                                  #
 #                                                                              #
-# Version        : 1.0.1                                                       #
+# Version        : 1.0.8                                                       #
 #                                                                              #
 # Usage          : bash sortscriptbuilder.sh                                   #
 #                                                                              #
@@ -37,6 +37,30 @@ if [ "$EUID" -ne 0 ]
   then echo "Please run as root ('sudo' will suffice)"
   exit
 fi
+
+sudo chmod a+x ./dep/sshkeygen.exp
+sudo chmod a+x ./dep/sshest.exp
+
+########################################################################
+#                                                                      #
+#  This section creates functions vital to the proper functioning of   #
+#                           the script.                                #
+#                                                                      #
+########################################################################
+
+function sshkeygen(){
+
+<<expect_eof ./dep/sshkeygen.exp $HOME
+expect_eof
+
+}
+
+function sshestablish(){
+
+<<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
+expect_eof
+
+}
 
 ########################################################################
 #                                                                      #
@@ -63,11 +87,11 @@ read -e -p "Enter your sudo password (again): " -s supassv;
 done
 
 read -e -p "Enter the rtorrent directory for finished downloads: [$HOME/rtorrent/finished]" findir
-    findir=${findir:-$HOME/rtorrent/finished};     ### defines the default value for this variable if no input detected ###
+    findir=${findir:-$HOME/rtorrent/finished};     ## defines the default value for this variable if no input detected ##
     printf "Setting directory to $findir...\n"
 
 read -e -p "Enter the directory where you want your organized media to go: [$HOME/Media]" meddir; 
-    meddir=${meddir:-$HOME/Media};     ### defines the default value for this variable if no input detected ###
+    meddir=${meddir:-$HOME/Media};     ## defines the default value for this variable if no input detected ##
     printf "Setting Media directory to $meddir...\n"
 
 read -e -p "Would you like to enable remote transfer of files?? (Yy|Nn)" yn;
@@ -97,16 +121,16 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
             case $yn2 in
                 Y* | y* ) 
                     read -e -p "Enter your username for the remote destination: [$USER]" remusr; 
-                        remusr=${remusr:-$USER};     ### defines the default value for this variable if no input detected ###
+                        remusr=${remusr:-$USER};     ## defines the default value for this variable if no input detected ##
                         printf "Setting remote username to $remusr...\n";
                     read -e -p "Enter your password for the remote destination:" -s rempass; 
-                        rempass=${rempass:-$PASSWORD};     ### defines the default value for this variable if no input detected ###
+                        rempass=${rempass:-$PASSWORD};     ## defines the default value for this variable if no input detected ##
                         printf "\nSetting remote password...\n";
                     read -e -p "Enter the IP Address of the remote location: [127.0.0.1]" addr;
-                        addr=${addr:-127.0.0.1};     ### defines the default value for this variable if no input detected ###
+                        addr=${addr:-127.0.0.1};     ## defines the default value for this variable if no input detected ##
                         printf "Setting remote IP Address to $addr...\n";
                     read -e -p "Enter the remote directory where you want to transfer your media to: [$addr/$HOME/Media]" rdest;
-                        rdest=${rdest:-$addr/$HOME/Media};     ### defines the default value for this variable if no input detected ###
+                        rdest=${rdest:-$addr/$HOME/Media};     ## defines the default value for this variable if no input detected ##
                         printf "Setting Media directory to $rdest...\n";
                 if [ ! -f ~/.ssh ]
                     then
@@ -118,18 +142,28 @@ while [[ "$yn" = "Y"* || "$yn" = "y"* || -z "$yn" ]] ; do
                         fi
                 fi
                     sudo chmod 700 ~/.ssh
-                    
-####################################################################################################################################
-### This section runs the expect script to automatically establish the ssh connection, and send the RSA key to the remote client ###
-####################################################################################################################################
 
-<<expect_eof ./dep/sshest.exp  "$addr" "$rempass" "$remusr" "$HOME" 
-expect_eof
-            wait $! &
+                #######################################################################
+                ##                                                                   ##
+                ## This checks to see if the 'id_rsa' key exists. If the Key exists  ##
+                ## it will copy the key to the remote host. If it does not exist. It ##
+                ## will create a key, then copy the key to the remote host.          ##
+                ##                                                                   ##
+                #######################################################################
 
-####################################
-### End of expect script section ###
-####################################
+                if [ ! -e ~/.ssh/id_rsa ]
+                    then
+                        sshkeygen; &&
+                        sshestablish wait $1
+                else
+                    sshestablish wait $1
+                fi
+
+                ####################################
+                ##                                ##
+                ##  End of expect script section  ##
+                ##                                ##
+                ####################################
 
 
                         printf "Choosing yes to the following option will begin \n"
