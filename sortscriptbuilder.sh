@@ -329,6 +329,7 @@ cat > $scriptfile <<EOT
 findir="$findir"
 meddir="$meddir"
 addr="$addr"
+remusr="$remusr"
 usrnm="$usrnm"
 rdest="$rdest"
 logfile="$logfile"
