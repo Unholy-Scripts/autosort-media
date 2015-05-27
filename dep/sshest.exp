@@ -8,26 +8,22 @@ set HOME        [lindex $argv 4]
 set timeout -1
 
 spawn ssh-keygen -b 2048 -t rsa -f $HOME/.ssh/id_rsa -q -N ""
-expect {
+expect
         "*exists*"
         {
                 exp_send "n\r"
-                exp_continue
         }
-}
 
 spawn ssh-copy-id $remusr@$addr
-expect {
+expect
         "*assword*"
                 {
                     exp_send "$password\r"
                     exp_continue
                 }
 
-        }
 
 spawn ssh $remusr@$addr
+Expect "$ "
 send "exit\r"
 
-
-#expect_eof
