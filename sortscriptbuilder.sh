@@ -11,9 +11,9 @@
 #                                                                              #
 # Contact        : rbleattler@gmail.com (Please use Subject: Autodl Script)    #
 #                                                                              #
-# Date           : 05/27/2015                                                  #
+# Date           : 05/28/2015                                                  #
 #                                                                              #
-# Version        : 1.1.0                                                       #
+# Version        : 1.1.1                                                       #
 #                                                                              #
 # Usage          : bash sortscriptbuilder.sh                                   #
 #                                                                              #
@@ -29,8 +29,6 @@
 . ./dep/builderconfig.conf
 
 clear               ## Clears the Terminal Window.
-
-version="1.1.0"     ## Defines the current version of this script
 
 #######################################################################
 #                                                                     #
