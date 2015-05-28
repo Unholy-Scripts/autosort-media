@@ -1,5 +1,18 @@
 # Change Log
 
+## [autosort-media-v1.1.0]
+
+### Major Changes
+* Changed scripting methodology to call functions from an outside file
+* Included the majority of functions in config file
+* Added Configuration file to ''/Dep'' directory
+
+### Minor Changes
+* Version updates
+* Minor Formatting changes
+
+### Bug Fixes
+
 ## [autosort-media-v1.0.8]
 
 ### Major Changes
