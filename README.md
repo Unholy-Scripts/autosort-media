@@ -34,12 +34,12 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 
 ## Recent Changes
 
-  #### Major Changes
+#### Major Changes
   * Changed scripting methodology to call functions from an outside file
   * Included the majority of functions in config file
   * Added Configuration file to ''/Dep'' directory
-  
-  #### Minor Changes
+
+#### Minor Changes
   * Version updates
   * Minor Formatting changes
 
