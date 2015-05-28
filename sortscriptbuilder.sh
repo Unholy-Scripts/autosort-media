@@ -60,8 +60,6 @@ setdepperm          ## This function sets permissions for the dependency files.
 
 getuserinfo         ## This function obtains user info for use later in the script.
 
-sshkeygen           ## This function generates an RSA Key.
-
 getdirinfo          ## This function obtains the directories the user wishes to use.
 
 remxfer             ## This function configures the remote transfer functionality.
@@ -69,8 +67,6 @@ remxfer             ## This function configures the remote transfer functionalit
 cleandirset         ## This function determines whether the user would like to enable a file cleanup.
 
 remhostsettings     ## This function obtains remote connection settings for the remote transfer.
-
-sshestablish        ## This function establishes the ssh connection with the remote host.
 
 logset              ## This function determines the location the user wants logs to be saved to.
 
