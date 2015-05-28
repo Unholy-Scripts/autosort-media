@@ -28,6 +28,19 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 * Automatic install of dependencies
 * More...
 
+## Current Version [autosort-media-v1.1.0]
+
+## Recent Changes
+
+#### Major Changes
+  * Changed scripting methodology to call functions from an outside file
+  * Included the majority of functions in config file
+  * Added Configuration file to ''/Dep'' directory
+
+#### Minor Changes
+  * Version updates
+  * Minor Formatting changes
+
 ### Honorable Mentions
 
 This was written as a compliment to the creator's installation of https://github.com/autodl-community/autodl-irssi.
