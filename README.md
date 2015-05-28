@@ -4,9 +4,9 @@ This script was developed to automatically sorts files based on user-defined par
 
 The core script reads the user's input, and writes a sorting script that will sort and move files.
 
-## Getting Started
+The script was built on Ubuntu 12.0.4 and Mac OS X 10.10.3. It will run effectively on both, however there may be some future funtionality that isn't as portable. Due to the nature of bash, and the lack of a proper bash shell in Windows (except Windows 7 Ultimate/Enterprise, details below\*\*) it will not run in a Windows environment\*\*. There may be future developments using PowerShell, but currently, the focus is on Unix based environments. 
 
-The script [sortscriptbuilder.sh](https://github.com/Unholy-Scripts/autosort-media/blob/master/sortscriptbuilder.sh) should always be run as ''sudo''. It will force an exit if it is not. This is because there are commands which require root access within the script. 
+\*\* In Windows 7 Ultimate and Enterprise, Microsoft offers [The Subsystem for Unix-based Applications](https://technet.microsoft.com/en-us/library/cc771470.aspx). I have not personally tested this script with it, though you are welcome to do so. 
 
 ## Dependencies
 
@@ -28,7 +28,7 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 * Automatic install of dependencies
 * More...
 
-## Current Version [autosort-media-v1.1.0]
+## Current Version [autosort-media-v1.1.1]
 
 ## Recent Changes
 
