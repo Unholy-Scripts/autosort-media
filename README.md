@@ -28,9 +28,7 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 * Automatic install of dependencies
 * More...
 
-## Current Version
-
-## [autosort-media-v1.1.0]
+## Current Version [autosort-media-v1.1.0]
 
 ## Recent Changes
 
