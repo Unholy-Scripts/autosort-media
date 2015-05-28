@@ -38,8 +38,6 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 
 ## Current Version [autosort-media-v1.1.1]
 
-## Recent Changes
-
 ### Major Changes
   * Changed scripting methodology to call functions from an outside file
   * Included the majority of functions in config file
