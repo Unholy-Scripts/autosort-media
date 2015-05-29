@@ -1,0 +1,35 @@
+#!/bin/bash
+
+#################################################################################
+#                                                                               #
+# Title          : sortmedia.sh                                                 #
+#                                                                               #
+# Description    : This script sorts media files based on the defined           #
+#                  parameters. Contact the author for specific questions.       #
+#                  or consult the autodl-community page on git-hub.             #
+#                                                                               #
+# Author         : IOnine                                                       #
+#                                                                               #
+# Contact        : rbleattler@gmail.com (Please use Subject: Media Sort Script) #
+#                                                                               #
+# Date           : $(date +%m/%d/%y)                                                     #
+#                                                                               #
+# Version        : $version                                                        #
+#                                                                               #
+# Usage          : bash sortscriptbuilder.sh                                    #
+#                                                                               #
+# Notes          : This script must be run with sudo to function properly       #
+#                                                                               #
+# Bash Version   : Tested on version 3.2.57(1)-release (x86_64-apple-darwin14)  #
+#                  and 4.2.25(1)-release (x86_64-pc-linux-gnu)                  #
+#                                                                               #
+#################################################################################
+
+
+#######################################################################
+#                                                                     #
+# This Source Code Form is subject to the terms of the Mozilla Public #
+# License, v. 2.0. If a copy of the MPL was not distributed with this #
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.            #
+#                                                                     #
+#######################################################################
