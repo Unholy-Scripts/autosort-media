@@ -14,7 +14,7 @@ The script [sortscriptbuilder.sh](https://github.com/Unholy-Scripts/autosort-med
 
 This script depends on the expect shell environment as a secondary environment to function properly. In Ubuntu (and other similar distributions) you may run ''apt-get install expect'' to have it installed on your system.
 
-In this version of autosort-media [v1.2.0-beta] the option to automatically install expect is built in.
+In this version of **autosort-media [v1.2.0-beta]** the option to automatically install expect is built in.
 
 You can find the binary installers here: [Expect](http://www.activestate.com/activetcl/downloads).
 You can find the source code here: [Expect](http://sourceforge.net/projects/expect/).
