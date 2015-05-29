@@ -14,6 +14,8 @@ The script [sortscriptbuilder.sh](https://github.com/Unholy-Scripts/autosort-med
 
 This script depends on the expect shell environment as a secondary environment to function properly. In Ubuntu (and other similar distributions) you may run ''apt-get install expect'' to have it installed on your system.
 
+In this version of autosort-media [v1.2.0-beta] the option to automatically install expect is built in.
+
 You can find the binary installers here: [Expect](http://www.activestate.com/activetcl/downloads).
 You can find the source code here: [Expect](http://sourceforge.net/projects/expect/).
 
@@ -24,18 +26,19 @@ Contributions are currently appreciated, and welcomed but must be specifically d
 ## Coming Additions
 
 * Adding automated cronjob scheduler as an option
-* Additional paramaterization of categories
-* Automatic install of dependencies
+* Metadata analytics and filtering based on these analytics
 * More...
 
-## Current Version [autosort-media-v1.1.0]
+## Current Version [autosort-media-v1.2.0-beta]
 
 ## Recent Changes
+* Massive rework of scripting methodology.
 
 #### Major Changes
-  * Changed scripting methodology to call functions from an outside file
-  * Included the majority of functions in config file
-  * Added Configuration file to ''/Dep'' directory
+* Separated into multiple files, referencing eachother
+* Added dependency installer function.
+* Added liability waiver
+* Increased functionality to expand directories and parameters indefinitely if the user wants.
 
 #### Minor Changes
   * Version updates
