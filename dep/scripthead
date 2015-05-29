@@ -14,7 +14,7 @@
 #                                                                               #
 # Date           : $(date +%m/%d/%y)                                                     #
 #                                                                               #
-# Version        : $version                                                        #
+# Version        : $version                                                   #
 #                                                                               #
 # Usage          : bash sortscriptbuilder.sh                                    #
 #                                                                               #
@@ -33,3 +33,4 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.            #
 #                                                                     #
 #######################################################################
+

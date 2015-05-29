@@ -11,9 +11,9 @@
 #                                                                              #
 # Contact        : rbleattler@gmail.com (Please use Subject: Autodl Script)    #
 #                                                                              #
-# Date           : 05/27/2015                                                  #
+# Date           : 05/29/2015                                                  #
 #                                                                              #
-# Version        : 1.1.0                                                       #
+# Version        : 1.2.0-beta                                                  #
 #                                                                              #
 # Usage          : bash sortscriptbuilder.sh                                   #
 #                                                                              #
@@ -30,7 +30,7 @@
 
 clear               ## Clears the Terminal Window.
 
-version="1.1.0"     ## Defines the current version of this script
+version="1.2.0-beta"     ## Defines the current version of this script
 
 #######################################################################
 #                                                                     #
@@ -55,12 +55,20 @@ fi
 #                                                                      #
 ########################################################################
 
+welcome             ## This function presents a liability waiver, and explains the script.
+
+depcheck            ## This function checks to see if the dependencies are installed. 
+                    ## If not, it asks the user if they want to install them.
+
+scriptloc           ## This function determines where the final script will be written to.
+
+logset              ## This function determines the location the user wants logs to be saved to.
+
+writehead           ## This function writes the script header
 
 setdepperm          ## This function sets permissions for the dependency files.
 
 getuserinfo         ## This function obtains user info for use later in the script.
-
-sshkeygen           ## This function generates an RSA Key.
 
 getdirinfo          ## This function obtains the directories the user wishes to use.
 
@@ -68,15 +76,11 @@ remxfer             ## This function configures the remote transfer functionalit
 
 cleandirset         ## This function determines whether the user would like to enable a file cleanup.
 
-remhostsettings     ## This function obtains remote connection settings for the remote transfer.
+remhostsettings     ## This function obtains, and configures connection settings for the remote transfer.
 
-sshestablish        ## This function establishes the ssh connection with the remote host.
+configdirs          ## This function configures the directories and parameters for sorting.
 
-logset              ## This function determines the location the user wants logs to be saved to.
-
-scriptloc           ## This function determines where the final script will be written to.
-
-writescript         ## This function utilizes all gathered data to write the final script.
+writescriptend      ## This function writes the tail end of the script.
 
 ### END OF SCRIPT ###
 
