@@ -1,8 +1,13 @@
 # [autosort-media](https://github.com/Unholy-Scripts/autosort-media)
 
 This script was developed to automatically sorts files based on user-defined parameters.
-
 The core script reads the user's input, and writes a sorting script that will sort and move files.
+
+The script that you interact with builds an end script which can be used to automatically search a directory for subdirectories using criteria provided by the user during the initial set up, and move those subdirectories based on that criteria. The script also provides the capability to configure automatic upload to a remote client. This is very useful for scouring your **Finished Torrents** folder, analyzing subdirectory names, and moving those subdirectories to a **Media** folder specified during setup.
+
+## The Flow of the Script
+
+![Example of Sorting with filters](/sortmediaflowchart.jpg)
 
 ## Getting Started
 
