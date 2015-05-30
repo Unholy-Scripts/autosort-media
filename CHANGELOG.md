@@ -1,5 +1,19 @@
 # Change Log
 
+## [autosort-media-v1.2.0-beta]
+
+### Major Changes
+* Completely reworked scripting methodology
+* Added expanded directory creation and parameterization
+* Added dependency installation script (user prompt)
+* Added liability waiver
+
+### Minor Changes
+* Version updates
+* Minor Formatting changes
+
+### Bug Fixes
+
 ## [autosort-media-v1.1.0]
 
 ### Major Changes
