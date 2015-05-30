@@ -7,6 +7,8 @@ The script that you interact with builds an end script which can be used to auto
 
 ## The Flow of the Script
 
+As of right now, the script tars the directories into an uncompressed tar archive. This technique makes transferring with scp more efficient, in that it recognizes it as one large file, segmented into smaller pieces, rather than trying to segment several other files, which may already be segmented into smaller files, and trying to transfer them in further scaled down bits. This increases transfer speed at least by a factor of 10. As of this version an untar has not been written into the process, when files arrive on the remote client, they will be in `DIRNAME.tar` format
+
 ![Example of Sorting with filters](/sortmediaflowchart.jpg)
 
 ## Getting Started
